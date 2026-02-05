@@ -17,6 +17,10 @@ public class CalculatorViewModel : INotifyPropertyChanged
     private double _leftOperand;
     private string _operation;
     private bool _isNewEntry = true;
+    
+    // History tracking
+    private readonly List<string> _history = new List<string>();
+    private int _historyIndex = -1;
 
     public ICommand NumberCommand { get; }
     public ICommand OperationCommand { get; }
@@ -56,6 +60,11 @@ public class CalculatorViewModel : INotifyPropertyChanged
         double rightOperand = double.Parse(DisplayText);
         double result = _model.Evaluate(_leftOperand, rightOperand, _operation);
         DisplayText = result.ToString();
+        
+        // Save result to history
+        _history.Add(DisplayText);
+        _historyIndex = _history.Count; // Reset to end of history
+        
         _isNewEntry = true;
     }
 
@@ -65,6 +74,37 @@ public class CalculatorViewModel : INotifyPropertyChanged
         _leftOperand = 0;
         _operation = null;
         _isNewEntry = true;
+    }
+    
+    public void ShowPreviousAnswer()
+    {
+        if (_history.Count == 0) return;
+        
+        // If we're at or past the end, start from the last item
+        if (_historyIndex >= _history.Count)
+        {
+            _historyIndex = _history.Count - 1;
+            DisplayText = _history[_historyIndex];
+            _isNewEntry = true;
+        }
+        else if (_historyIndex > 0)
+        {
+            _historyIndex--;
+            DisplayText = _history[_historyIndex];
+            _isNewEntry = true;
+        }
+    }
+    
+    public void ShowNextAnswer()
+    {
+        if (_history.Count == 0) return;
+        
+        if (_historyIndex < _history.Count - 1)
+        {
+            _historyIndex++;
+            DisplayText = _history[_historyIndex];
+            _isNewEntry = true;
+        }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
