@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "1wpBhxbA8SZTIw1pJDb6klOhd8M6uEEHtgHoZugOrxCCkHOCN5EWYgfVPh9V7JciWnYzpGx7k+5PPv23pskpxA==",
+  "dgSpecHash": "X8ILFN+CgS8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\hadik\\source\\repos\\calc\\calc\\calc.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/runner/work/calculator/calculator/calc.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.ref/8.0.23/microsoft.windowsdesktop.app.ref.8.0.23.nupkg.sha512"
+  ],
   "logs": []
 }
