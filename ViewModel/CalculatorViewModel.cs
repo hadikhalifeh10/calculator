@@ -80,7 +80,14 @@ public class CalculatorViewModel : INotifyPropertyChanged
     {
         if (_history.Count == 0) return;
         
-        if (_historyIndex > 0)
+        // If we're at or past the end, start from the last item
+        if (_historyIndex >= _history.Count)
+        {
+            _historyIndex = _history.Count - 1;
+            DisplayText = _history[_historyIndex];
+            _isNewEntry = true;
+        }
+        else if (_historyIndex > 0)
         {
             _historyIndex--;
             DisplayText = _history[_historyIndex];
@@ -96,13 +103,6 @@ public class CalculatorViewModel : INotifyPropertyChanged
         {
             _historyIndex++;
             DisplayText = _history[_historyIndex];
-            _isNewEntry = true;
-        }
-        else if (_historyIndex == _history.Count - 1)
-        {
-            // Go back to the current display
-            _historyIndex = _history.Count;
-            DisplayText = "0";
             _isNewEntry = true;
         }
     }
